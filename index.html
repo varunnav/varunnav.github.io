@@ -1,25 +1,83 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Meri Website</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Varun's Website</title>
     <style>
+        :root{--accent:#00695c;--bg:#e0f7fa;--text:#37474f}
         body {
-            background-color: #e0f7fa;
-            text-align: center;
+            background-color: var(--bg);
+            color: var(--text);
             font-family: Arial, sans-serif;
-            margin-top: 50px;
+            margin: 0;
+            padding: 40px 20px;
+            -webkit-font-smoothing:antialiased;
         }
-        h1 {
-            color: #00695c;
-        }
-        p {
-            color: #37474f;
-            font-size: 18px;
+        .container{max-width:900px;margin:0 auto}
+        header{text-align:center;margin-bottom:30px}
+        h1{color:var(--accent);margin:0 0 8px}
+        p.lead{font-size:18px;margin:0}
+
+        /* Bio section */
+        .bio{display:flex;gap:24px;align-items:center;background:#ffffff;padding:20px;border-radius:10px;box-shadow:0 2px 6px rgba(0,0,0,0.06)}
+        .bio-photo{flex:0 0 180px}
+        .bio-photo img{width:180px;height:180px;object-fit:cover;border-radius:8px;border:4px solid #f1f8f7}
+        .bio-text{flex:1}
+        .bio-text h2{margin-top:0;color:var(--accent)}
+        .contact{margin-top:12px;font-size:15px}
+        .contact a{color:var(--accent);text-decoration:none}
+
+        /* Gallery */
+        .gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-top:20px}
+        .gallery img{width:100%;height:120px;object-fit:cover;border-radius:8px}
+
+        footer{text-align:center;margin-top:28px;color:#65737e;font-size:14px}
+
+        @media (max-width:700px){
+            .bio{flex-direction:column;text-align:center}
+            .bio-photo{flex:none}
+            .bio-photo img{width:140px;height:140px}
         }
     </style>
 </head>
 <body>
-    <h1>Hello world! yeh mera pehla code hai</h1>
-    <p>i think mai isse <b>jaldi sikh lu</b></p>
+    <div class="container">
+        <header>
+            <h1>Hello world! yeh mera pehla code hai</h1>
+            <p class="lead">Welcome — I updated this page to include a short bio and photos. Replace the placeholder images with your own.</p>
+        </header>
+
+        <section class="bio" id="about">
+            <div class="bio-photo">
+                <!-- Replace images/me.jpg with your real photo in the images/ folder. -->
+                <img src="https://placehold.co/360x360/png?text=Your+Photo" 
+                     alt="Photo of Varun" 
+                     srcset="https://placehold.co/180x180/png?text=Your+Photo 180w, https://placehold.co/360x360/png?text=Your+Photo 360w"
+                     sizes="(max-width:700px) 140px, 180px"
+                     loading="lazy">
+            </div>
+            <div class="bio-text">
+                <h2>About Me</h2>
+                <p>Hi — I'm Varun. (Replace this with your bio.) I am learning web development and building small projects. I enjoy coding, solving problems, and sharing what I learn.</p>
+                <p class="contact"><strong>Contact:</strong> <a href="mailto:you@example.com">you@example.com</a> · <a href="https://github.com/varunnav">@varunnav</a></p>
+            </div>
+        </section>
+
+        <section class="photos">
+            <h3 style="margin-top:22px;color:var(--accent)">Photos</h3>
+            <p style="margin:6px 0 12px">A small gallery — replace these with your images or add more.</p>
+            <div class="gallery">
+                <img src="https://placehold.co/600x400/png?text=Photo+1" alt="Photo 1" loading="lazy">
+                <img src="https://placehold.co/600x400/png?text=Photo+2" alt="Photo 2" loading="lazy">
+                <img src="https://placehold.co/600x400/png?text=Photo+3" alt="Photo 3" loading="lazy">
+            </div>
+            <p style="font-size:13px;color:#546e7a;margin-top:10px">Tip: Upload your photos to an images/ folder and update the src attributes (or tell me and I can add them for you).</p>
+        </section>
+
+        <footer>
+            <p>Made with ❤️ — update this bio and the photos anytime.</p>
+        </footer>
+    </div>
 </body>
 </html>
