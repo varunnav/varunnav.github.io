@@ -5,76 +5,117 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Varun's Website</title>
     <style>
-        :root{--accent:#00695c;--bg:#e0f7fa;--text:#37474f}
+        :root{--accent:#00695c;--bg:#f6f9fa;--card:#ffffff;--text:#1f2d2f}
         body {
             background-color: var(--bg);
             color: var(--text);
-            font-family: Arial, sans-serif;
+            font-family: Inter, Arial, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
             margin: 0;
-            padding: 40px 20px;
+            padding: 28px 16px;
             -webkit-font-smoothing:antialiased;
         }
-        .container{max-width:900px;margin:0 auto}
-        header{text-align:center;margin-bottom:30px}
-        h1{color:var(--accent);margin:0 0 8px}
-        p.lead{font-size:18px;margin:0}
+        .container{max-width:1000px;margin:0 auto}
+        header{display:flex;align-items:center;gap:18px;justify-content:space-between;margin-bottom:20px}
+        .brand{display:flex;align-items:center;gap:12px}
+        .logo{width:56px;height:56px;border-radius:10px;background:linear-gradient(135deg,#e0f7f4,#b2dfdb);display:flex;align-items:center;justify-content:center;font-weight:700;color:#004d40}
+        h1{color:var(--accent);margin:0;font-size:20px}
+        p.lead{font-size:15px;margin:0;color:#345}
 
         /* Bio section */
-        .bio{display:flex;gap:24px;align-items:center;background:#ffffff;padding:20px;border-radius:10px;box-shadow:0 2px 6px rgba(0,0,0,0.06)}
+        .card{background:var(--card);padding:18px;border-radius:12px;box-shadow:0 6px 18px rgba(16,24,40,0.06)}
+        .bio{display:flex;gap:20px;align-items:center}
         .bio-photo{flex:0 0 180px}
-        .bio-photo img{width:180px;height:180px;object-fit:cover;border-radius:8px;border:4px solid #f1f8f7}
+        .bio-photo img{width:180px;height:180px;object-fit:cover;border-radius:12px;border:6px solid #f6fbfa;box-shadow:0 6px 18px rgba(2,6,23,0.08)}
         .bio-text{flex:1}
-        .bio-text h2{margin-top:0;color:var(--accent)}
-        .contact{margin-top:12px;font-size:15px}
+        .bio-text h2{margin-top:0;color:var(--accent);font-size:18px}
+        .contact{margin-top:10px;font-size:14px}
         .contact a{color:var(--accent);text-decoration:none}
 
         /* Gallery */
-        .gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-top:20px}
-        .gallery img{width:100%;height:120px;object-fit:cover;border-radius:8px}
+        .photos-header{display:flex;align-items:center;justify-content:space-between;margin-top:18px}
+        .gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-top:12px}
+        .gallery .tile{position:relative;overflow:hidden;border-radius:10px}
+        .gallery img{width:100%;height:220px;object-fit:cover;display:block;transition:transform .35s ease}
+        .gallery .tile:hover img{transform:scale(1.06)}
+        .caption{position:absolute;left:8px;bottom:8px;background:linear-gradient(90deg, rgba(0,0,0,0.6), rgba(0,0,0,0.15));color:#fff;padding:6px 10px;border-radius:8px;font-size:13px}
 
         footer{text-align:center;margin-top:28px;color:#65737e;font-size:14px}
 
-        @media (max-width:700px){
+        /* Lightbox */
+        .lightbox{position:fixed;inset:0;background:rgba(0,0,0,0.75);display:none;align-items:center;justify-content:center;padding:24px}
+        .lightbox img{max-width:100%;max-height:90vh;border-radius:10px}
+        .lightbox.show{display:flex}
+
+        @media (max-width:720px){
+            header{flex-direction:column;align-items:flex-start}
             .bio{flex-direction:column;text-align:center}
             .bio-photo{flex:none}
             .bio-photo img{width:140px;height:140px}
+            .gallery img{height:160px}
         }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>Hello world! yeh mera pehla code hai</h1>
-            <p class="lead">Welcome — Check out my bio and photos below!</p>
+            <div class="brand">
+                <div class="logo">V</div>
+                <div>
+                    <h1>Varun Nav</h1>
+                    <p class="lead">Web developer • Photographer • Problem solver</p>
+                </div>
+            </div>
+            <nav style="font-size:14px">
+                <a href="#about" style="color:var(--accent);text-decoration:none;margin-right:12px">About</a>
+                <a href="#photos" style="color:#456;text-decoration:none">Photos</a>
+            </nav>
         </header>
 
-        <section class="bio" id="about">
+        <section class="card bio" id="about">
             <div class="bio-photo">
-                <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAIBAQIBAQICAgICAgICAwUDAwwUAxUTAwwSAxkdEx8hJRwfHx8jJzMmJiYmODg4Ozs7Ozs7Ozs7Ozs7Ozs7OzsDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAz/2wBDAQICAgMDAwYDAwYMCAcIDAwwMwwIDAwIDAwMDAwIDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAz/wAARCADIAMgDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKytLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlbaWmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD9/KKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigD/2Q==" 
-                     alt="Photo of Varun" 
-                     loading="lazy">
+                <img id="bioPhoto" src="images/photo1.png" alt="Varun profile photo" loading="lazy">
             </div>
             <div class="bio-text">
                 <h2>About Me</h2>
-                <p>Hi — I'm Varun. I'm passionate about web development and love building projects. I enjoy coding, solving problems, and sharing what I learn. Always looking to improve my skills and take on new challenges.</p>
-                <p class="contact"><strong>Contact:</strong> <a href="mailto:you@example.com">you@example.com</a> · <a href="https://github.com/varunnav">@varunnav</a></p>
+                <p>Hi — I'm Varun. I build things for the web and capture moments with my camera. I enjoy clean interfaces, fast performance, and thoughtful design. This site shows a few of my photos and some contact info.</p>
+                <p class="contact"><strong>Contact:</strong> <a href="mailto:you@example.com">you@example.com</a> · <a href="https://github.com/varunnav" target="_blank">@varunnav</a></p>
             </div>
         </section>
 
-        <section class="photos">
-            <h3 style="margin-top:22px;color:var(--accent)">Photos</h3>
-            <p style="margin:6px 0 12px">A collection of my favorite photos!</p>
-            <div class="gallery">
-                <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAIBAQIBAQICAgICAgICAwUDAwwUAxUTAwwSAxkdEx8hJRwfHx8jJzMmJiYmODg4Ozs7Ozs7Ozs7Ozs7Ozs7OzsDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAz/2wBDAQICAgMDAwYDAwYMCAcIDAwwMwwIDAwIDAwMDAwIDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAz/wAARCADIAMgDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKytLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlbaWmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD9/KKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigD/2Q==" alt="Photo 1" loading="lazy">
-                <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAIBAQIBAQICAgICAgICAwUDAwwUAxUTAwwSAxkdEx8hJRwfHx8jJzMmJiYmODg4Ozs7Ozs7Ozs7Ozs7Ozs7OzsDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAz/2wBDAQICAgMDAwYDAwYMCAcIDAwwMwwIDAwIDAwMDAwIDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAz/wAARCADIAMgDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKytLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlbaWmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD9/KKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigD/2Q==" alt="Photo 2" loading="lazy">
-                <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAIBAQIBAQICAgICAgICAwUDAwwUAxUTAwwSAxkdEx8hJRwfHx8jJzMmJiYmODg4Ozs7Ozs7Ozs7Ozs7Ozs7OzsDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAz/2wBDAQICAgMDAwYDAwYMCAcIDAwwMwwIDAwIDAwMDAwIDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAz/wAARCADIAMgDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKytLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlbaWmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD9/KKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigD/2Q==" alt="Photo 3" loading="lazy">
+        <section id="photos">
+            <div class="photos-header">
+                <div>
+                    <h3 style="margin:0;color:var(--accent)">Photos</h3>
+                    <p style="margin:6px 0 0;color:#456;font-size:14px">A selection of my favorite shots — click to enlarge.</p>
+                </div>
             </div>
-            <p style="font-size:13px;color:#546e7a;margin-top:10px">Here are some of my favorite photos!</p>
+
+            <div class="gallery card">
+                <div class="tile"><img src="images/photo1.png" alt="Photo 1" data-caption="Portrait - 1"><div class="caption">Portrait</div></div>
+                <div class="tile"><img src="images/photo2.png" alt="Photo 2" data-caption="Night - 2"><div class="caption">Night</div></div>
+                <div class="tile"><img src="images/photo3.png" alt="Photo 3" data-caption="Candid - 3"><div class="caption">Candid</div></div>
+            </div>
         </section>
 
         <footer>
-            <p>Made with ❤️ — update this bio and the photos anytime.</p>
+            <p>Made with ❤️ — update this anytime. Images served from <code>/images/</code>.</p>
         </footer>
     </div>
+
+    <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+        <img id="lightboxImg" src="" alt="">
+    </div>
+
+    <script>
+        document.querySelectorAll('.gallery img').forEach(img=>{
+            img.addEventListener('click',e=>{
+                const lb=document.getElementById('lightbox');
+                const lbImg=document.getElementById('lightboxImg');
+                lbImg.src=e.target.src;
+                lb.classList.add('show');
+            })
+        })
+        function closeLightbox(){document.getElementById('lightbox').classList.remove('show');document.getElementById('lightboxImg').src=''}
+    </script>
 </body>
 </html>
